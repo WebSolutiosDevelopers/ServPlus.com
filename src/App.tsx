@@ -567,7 +567,7 @@ export default function App() {
         isInstalled={isPwaInstalled}
       />
 
-      {/* Banner Flutuante de Instalação Mobile PWA (se não instalado e não dispensado) */}
+      {/* Banner Flutuante de Instalação Mobile PWA (se não instalado e não dispensado) 
       {!isPwaInstalled && !pwaBannerDismissed && (
         <div className="sm:hidden fixed bottom-3 inset-x-3 z-40 bg-slate-900/95 border border-blue-500/40 rounded-2xl p-3 shadow-2xl backdrop-blur-md flex items-center justify-between gap-3 animate-fadeIn">
           <div className="flex items-center gap-2.5 min-w-0">
