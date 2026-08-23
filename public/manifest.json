@@ -3,7 +3,7 @@
   "short_name": "ServPlus",
   "description": "Aplicativo de alta performance para técnicos de campo registrarem instalações, manutenções, localização GPS e ganhos.",
   "id": "/?source=pwa",
-  "start_url": "/?source=pwa",
+  "start_url": "https://websolutiosdevelopers.github.io/ServPlus.com/",
   "scope": "/",
   "display": "standalone",
   "display_override": ["standalone", "window-controls-overlay", "minimal-ui"],
