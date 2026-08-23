@@ -1,0 +1,102 @@
+{
+  "entities": {
+    "servicos": {
+      "title": "Serviços Cadastrados",
+      "description": "Registros de instalações e serviços efetuados pelos técnicos na subcoleção do usuário",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "ID do técnico logado" },
+        "userEmail": { "type": "string", "description": "Email do técnico" },
+        "userName": { "type": "string", "description": "Nome do técnico" },
+        "tipoAtividade": { "type": "string" },
+        "tipoServico": { "type": "string" },
+        "operadora": { "type": "string" },
+        "data": { "type": "string" },
+        "createdAt": { "type": "number" },
+        "localizacao": {
+          "type": "object",
+          "properties": {
+            "endereco": { "type": "string" },
+            "numero": { "type": "string" },
+            "bairro": { "type": "string" },
+            "cidade": { "type": "string" },
+            "estado": { "type": "string" },
+            "latitude": { "type": "number" },
+            "longitude": { "type": "number" }
+          }
+        },
+        "dadosVisita": {
+          "type": "object",
+          "properties": {
+            "numeroSA": { "type": "string" },
+            "acessoGpon": { "type": "string" },
+            "quemAtendeu": { "type": "string" },
+            "contatoCliente": { "type": "string" },
+            "metragemRolo": { "type": "number" },
+            "metragemInicial": { "type": "number" },
+            "metragemFinal": { "type": "number" },
+            "snOnt": { "type": "string" },
+            "snDrop": { "type": "string" },
+            "qtdConector": { "type": "number" },
+            "qtdEsticador": { "type": "number" },
+            "plaqueta": { "type": "number" },
+            "kitFixaFio": { "type": "number" },
+            "tipoCdoe": { "type": "string", "enum": ["CDOE", "CDOI"] },
+            "numCdoe": { "type": "number" },
+            "portaUtilizada": { "type": "number" }
+          }
+        },
+        "observacoes": { "type": "string" },
+        "fotos": { "type": "array", "items": { "type": "string" } },
+        "valor": { "type": "number" }
+      },
+      "required": ["userId", "tipoServico", "operadora", "data"]
+    },
+    "usuarios": {
+      "title": "Perfil de Usuários",
+      "description": "Dados do perfil de técnicos e administradores e suas configurações individuais do Telegram",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "nome": { "type": "string" },
+        "telegramChatId": { "type": "string" },
+        "telegramPrivadoChatId": { "type": "string" },
+        "telegramGrupoChatId": { "type": "string" },
+        "telegramModoEnvio": { "type": "string", "enum": ["ambos", "grupo", "privado", "padrao"] },
+        "telegramBotToken": { "type": "string" },
+        "ultimoAcesso": { "type": "number" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["uid", "email"]
+    },
+    "config": {
+      "title": "Configurações Gerais",
+      "description": "Configurações do sistema como parâmetros globais do Telegram e modos de envio",
+      "type": "object",
+      "properties": {
+        "botToken": { "type": "string" },
+        "chatId": { "type": "string" },
+        "grupoChatId": { "type": "string" },
+        "modoEnvio": { "type": "string", "enum": ["ambos", "grupo", "privado"] },
+        "userConfigs": { "type": "object" },
+        "userChatIds": { "type": "object" },
+        "updatedAt": { "type": "number" }
+      }
+    }
+  },
+  "firestore": {
+    "/usuarios/{userId}/servicos/{servicoId}": {
+      "schema": { "$ref": "#/entities/servicos" },
+      "description": "Subcoleção de serviços cadastrados para cada técnico/usuário"
+    },
+    "/usuarios/{userId}": {
+      "schema": { "$ref": "#/entities/usuarios" },
+      "description": "Documentos de perfis de usuários e seus IDs individuais do Telegram"
+    },
+    "/config/{configId}": {
+      "schema": { "$ref": "#/entities/config" },
+      "description": "Configurações globais do sistema e integrações"
+    }
+  }
+}

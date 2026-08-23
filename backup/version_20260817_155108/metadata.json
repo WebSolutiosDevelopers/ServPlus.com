@@ -1,0 +1,6 @@
+{
+  "name": "Cadastro de Serviços de Campo",
+  "description": "Aplicativo para cadastro e controle de serviços de instalação e reparo de telecomunicações com geolocalização, fotos e estatísticas de ganhos.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
