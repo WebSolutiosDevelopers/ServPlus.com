@@ -558,7 +558,7 @@ export default function App() {
         userName={user.displayName || user.email || ''}
       />
 
-      {/* Modal de Instalação PWA */}
+      {/* Modal de Instalação PWA 
       <PwaInstallModal
         isOpen={pwaModalAberto}
         onClose={() => setPwaModalAberto(false)}
@@ -596,7 +596,7 @@ export default function App() {
             </button>
           </div>
         </div>
-      )}
+      )}*/}
 
     </div>
   );
