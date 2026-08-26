@@ -410,6 +410,12 @@ export default function App() {
         <MeusGanhosCard
           servicosFiltrados={servicosFiltrados}
           periodoTexto={getPeriodoDescricao()}
+          <button
+                onClick={handleSincronizarNuvem}
+                disabled={sincronizandoNuvem}
+                title="Sincronizar dados com a nuvem Firebase"
+                className="text-xs bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 px-3 py-1 rounded-full flex items-center gap-1.5 transition active:scale-95 disabled:opacity-50"
+              >
         />
 
         {/* Bar de Filtros (Hoje, Ontem, 7d, 30d, Mês, Início/Fim, Atividade) */}
