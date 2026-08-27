@@ -6,8 +6,6 @@ import { isInstalacao, isMudancaEndereco, getValorServico } from '../utils/servi
 interface MeusGanhosCardProps {
   servicosFiltrados: ServicoItem[];
   periodoTexto: string;
-  onSincronizar?: () => void;
-  sincronizando?: boolean;
 }
 
 export const MeusGanhosCard: React.FC<MeusGanhosCardProps> = ({
@@ -36,15 +34,7 @@ export const MeusGanhosCard: React.FC<MeusGanhosCardProps> = ({
             <span>Resumo de Faturamento</span>
              
             <span className="text-slate-500">• {periodoTexto}</span>
-            <button
-                onClick={handleSincronizarNuvem}
-                disabled={sincronizandoNuvem}
-                title="Sincronizar dados com a nuvem Firebase"
-                className="text-xs bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 px-3 py-1 rounded-full flex items-center gap-1.5 transition active:scale-95 disabled:opacity-50"
-              >
-                <RefreshCw className={`w-3.5 h-3.5 text-blue-400 ${sincronizandoNuvem ? 'animate-spin' : ''}`} />
-                <span>{sincronizandoNuvem ? 'Sincronizando...' : 'Sincronizar'}</span>
-              </button>
+           
           
           </div>
 
