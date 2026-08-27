@@ -446,11 +446,6 @@ export default function App() {
                 <Zap className="w-3 h-3 text-emerald-400 fill-emerald-400" />
                 Zero Leituras no BD
               </span>
-
-              
-                <RefreshCw className={`w-3.5 h-3.5 text-blue-400 ${sincronizandoNuvem ? 'animate-spin' : ''}`} />
-                <span>{sincronizandoNuvem ? 'Sincronizando...' : 'Sincronizar'}</span>
-              </button>
             </div>
           </div>
 
