@@ -37,7 +37,7 @@ export const MeusGanhosCard: React.FC<MeusGanhosCardProps> = ({
              <div className="flex items-center gap-1.5">
             <DollarSign className="w-4 h-4 text-emerald-400" />
             <span className="text-[12px] justify-center">Resumo de Faturamento</span>
-            <span className="text-slate-400 text-xs justify-center">•{periodoTexto} </span>
+            <span className="text-slate-400 text-[10px]">•{periodoTexto} </span>
              </div>
              {onSincronizar && (
               <button
