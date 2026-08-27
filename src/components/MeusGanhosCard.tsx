@@ -38,18 +38,6 @@ export const MeusGanhosCard: React.FC<MeusGanhosCardProps> = ({
             <span>Resumo de Faturamento</span>
              
             <span className="text-slate-500">• {periodoTexto}</span>
-           
-          
-          </div>
-
-         <div className="flex items-center gap-3 flex-wrap">
-            <div className="flex items-baseline gap-2">
-              <span className="text-sm font-medium text-slate-400">Meus Ganhos:</span>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-emerald-400 tracking-tight">
-                R$ {totalGanhos.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-              </h2>
-            </div>
-
             {onSincronizar && (
               <button
                 type="button"
@@ -62,6 +50,18 @@ export const MeusGanhosCard: React.FC<MeusGanhosCardProps> = ({
                 <span>{sincronizando ? 'Sincronizando...' : 'Sincronizar'}</span>
               </button>
             )}
+          
+          </div>
+
+         <div className="flex items-center gap-3 flex-wrap">
+            <div className="flex items-baseline gap-2">
+              <span className="text-sm font-medium text-slate-400">Meus Ganhos:</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-emerald-400 tracking-tight">
+                R$ {totalGanhos.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </h2>
+            </div>
+
+           
           </div>
 
           <p className="text-xs text-slate-400 mt-1">
