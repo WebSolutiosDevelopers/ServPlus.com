@@ -1,11 +1,13 @@
 import React from 'react';
-import { DollarSign, TrendingUp, CheckCircle, Radio } from 'lucide-react';
+import { DollarSign, TrendingUp, CheckCircle, Radio, RefreshCw } from 'lucide-react';
 import { ServicoItem } from '../types';
 import { isInstalacao, isMudancaEndereco, getValorServico } from '../utils/servicoUtils';
 
 interface MeusGanhosCardProps {
   servicosFiltrados: ServicoItem[];
   periodoTexto: string;
+  onSincronizar?: () => void;
+  sincronizando?: boolean;
 }
 
 export const MeusGanhosCard: React.FC<MeusGanhosCardProps> = ({
@@ -33,6 +35,7 @@ export const MeusGanhosCard: React.FC<MeusGanhosCardProps> = ({
             <DollarSign className="w-4 h-4 text-emerald-400" />
             <span>Resumo de Faturamento</span>
             <span className="text-slate-500">• {periodoTexto}</span>
+            <button></button>
           </div>
 
           <div className="flex items-baseline gap-2">
