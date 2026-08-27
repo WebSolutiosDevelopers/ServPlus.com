@@ -410,6 +410,8 @@ export default function App() {
         <MeusGanhosCard
           servicosFiltrados={servicosFiltrados}
           periodoTexto={getPeriodoDescricao()}
+          onSincronizar = {handleSincronizarNuvem}
+           sincronizando={sincronizandoNuvem}
         />
 
         {/* Bar de Filtros (Hoje, Ontem, 7d, 30d, Mês, Início/Fim, Atividade) */}
