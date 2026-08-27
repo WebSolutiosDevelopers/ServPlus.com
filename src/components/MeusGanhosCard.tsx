@@ -6,11 +6,15 @@ import { isInstalacao, isMudancaEndereco, getValorServico } from '../utils/servi
 interface MeusGanhosCardProps {
   servicosFiltrados: ServicoItem[];
   periodoTexto: string;
+  onSincronizar?: () => void;
+  sincronizando?: boolean;
 }
 
 export const MeusGanhosCard: React.FC<MeusGanhosCardProps> = ({
   servicosFiltrados,
-  periodoTexto
+  periodoTexto,
+  onSincronizar,
+  sincronizando = false
 }) => {
   // Contagem de instalações e mudanças de endereço (R$ 100,00 cada)
   const totalInstalacoes = servicosFiltrados.filter((s) => isInstalacao(s)).length;
@@ -38,11 +42,26 @@ export const MeusGanhosCard: React.FC<MeusGanhosCardProps> = ({
           
           </div>
 
-          <div className="flex items-baseline gap-2">
-            <span className="text-sm font-medium text-slate-400">Meus Ganhos:</span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-emerald-400 tracking-tight">
-              R$ {totalGanhos.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-            </h2>
+         <div className="flex items-center gap-3 flex-wrap">
+            <div className="flex items-baseline gap-2">
+              <span className="text-sm font-medium text-slate-400">Meus Ganhos:</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-emerald-400 tracking-tight">
+                R$ {totalGanhos.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </h2>
+            </div>
+
+            {onSincronizar && (
+              <button
+                type="button"
+                onClick={onSincronizar}
+                disabled={sincronizando}
+                title="Sincronizar dados com o servidor"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 hover:text-emerald-300 border border-emerald-500/30 text-xs font-medium transition active:scale-95 disabled:opacity-50 shadow-sm"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${sincronizando ? 'animate-spin' : ''}`} />
+                <span>{sincronizando ? 'Sincronizando...' : 'Sincronizar'}</span>
+              </button>
+            )}
           </div>
 
           <p className="text-xs text-slate-400 mt-1">
