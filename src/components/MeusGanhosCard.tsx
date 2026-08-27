@@ -33,11 +33,13 @@ export const MeusGanhosCard: React.FC<MeusGanhosCardProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
         
         <div>
-          <div className="flex items-center gap-2 text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">
+          <div className="justify-between  w-full flex items-center gap-2 text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">
+             <div className="flex items-center gap-1.5">
             <DollarSign className="w-4 h-4 text-emerald-400" />
             <span className="text-[10px]">Resumo de Faturamento</span>
             <span className="text-slate-400">•{periodoTexto} </span>
-           {onSincronizar && (
+             </div>
+             {onSincronizar && (
               <button
                 type="button"
                 onClick={onSincronizar}
