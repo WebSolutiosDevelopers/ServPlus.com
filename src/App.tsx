@@ -237,8 +237,8 @@ export default function App() {
   const getPeriodoDescricao = () => {
     if (filtro.preset === 'hoje') return 'Hoje';
     if (filtro.preset === 'ontem') return 'Ontem';
-    if (filtro.preset === '7dias') return 'Últimos 7 dias';
-    if (filtro.preset === '30dias') return 'Últimos 30 dias';
+    if (filtro.preset === '7dias') return '7 dias';
+    if (filtro.preset === '30dias') return '30 dias';
     if (filtro.preset === 'mes' && filtro.mesAno) return `Mês ${filtro.mesAno}`;
     if (filtro.dataInicio && filtro.dataFim) {
       return `${filtro.dataInicio} até ${filtro.dataFim}`;
