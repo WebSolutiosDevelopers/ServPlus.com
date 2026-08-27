@@ -43,7 +43,7 @@ export const MeusGanhosCard: React.FC<MeusGanhosCardProps> = ({
                 onClick={onSincronizar}
                 disabled={sincronizando}
                 title="Sincronizar dados com o servidor"
-                className="inline-flex items-center gap-1.5 px-2 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 hover:text-emerald-300 border border-emerald-500/30 text-xs font-medium transition active:scale-85 disabled:opacity-50 shadow-sm"
+                className="inline-flex items-center gap-1.5 px-2 py-1.0 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 hover:text-emerald-300 border border-emerald-500/30 text-xs font-medium transition active:scale-85 disabled:opacity-50 shadow-sm"
               >
                 <RefreshCw className={`w-3.5 h-3.5 ${sincronizando ? 'animate-spin' : ''}`} />
                 <span>{sincronizando ? 'Sincronizando...' : 'Sincronizar'}</span>
