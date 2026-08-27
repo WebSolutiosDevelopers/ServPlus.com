@@ -37,18 +37,7 @@ export const MeusGanhosCard: React.FC<MeusGanhosCardProps> = ({
             <DollarSign className="w-4 h-4 text-emerald-400" />
             <span>Resumo de Faturamento</span>
             <span className="text-slate-400">•{periodoTexto} </span>
-            {onSincronizar && (
-              <button
-                type="button"
-                onClick={onSincronizar}
-                disabled={sincronizando}
-                title="Sincronizar dados com o servidor"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 hover:text-emerald-300 border border-emerald-500/30 text-xs font-medium transition active:scale-95 disabled:opacity-50 shadow-sm"
-              >
-                <RefreshCw className={`w-3.5 h-3.5 ${sincronizando ? 'animate-spin' : ''}`} />
-                <span>{sincronizando ? 'Sincronizando...' : 'Sincronizar'}</span>
-              </button>
-            )}
+           
           
           </div>
 
