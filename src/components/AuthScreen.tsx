@@ -12,11 +12,7 @@ import {
   LogIn,
   AlertCircle,
   CheckCircle2,
-  Zap,
-  Download,
-  Smartphone,
-  Sparkles,
-  ExternalLink
+  Zap
 } from 'lucide-react';
 import { PwaInstallModal } from './PwaInstallModal';
 
@@ -32,7 +28,6 @@ export const AuthScreen: React.FC = () => {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [isInstalled, setIsInstalled] = useState(false);
   const [isIframe, setIsIframe] = useState(false);
-  const [installingPwa, setInstallingPwa] = useState(false);
 
   useEffect(() => {
     try {
@@ -42,20 +37,69 @@ export const AuthScreen: React.FC = () => {
     }
 
     if (typeof window !== 'undefined') {
-      if ((window as any).deferredPwaPrompt) {
-        setDeferredPrompt((window as any).deferredPwaPrompt);
-      }
       if ((window as any).isAppInstalled || window.matchMedia('(display-mode: standalone)').matches) {
         setIsInstalled(true);
       }
 
+      let deferredPrompt: any;
+      const installButton = document.getElementById('installButton');
+
+      const handleBeforeInstallPrompt = (event: any) => {
+        event.preventDefault();
+        deferredPrompt = event;
+        setDeferredPrompt(event);
+        (window as any).deferredPwaPrompt = event;
+        const btn = document.getElementById('installButton');
+        if (btn) {
+          btn.style.display = 'block';
+        }
+      };
+
+      const handleInstallClick = () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then((choiceResult: any) => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('Usuário aceitou instalar o PWA');
+              setIsInstalled(true);
+              const btn = document.getElementById('installButton');
+              if (btn) btn.style.display = 'none';
+            } else {
+              console.log('Usuário recusou instalar o PWA');
+            }
+            deferredPrompt = null;
+          });
+        }
+      };
+
+      window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      if (installButton) {
+        installButton.addEventListener('click', handleInstallClick);
+      }
+
+      // Se o evento já foi capturado previamente
+      if ((window as any).deferredPwaPrompt) {
+        deferredPrompt = (window as any).deferredPwaPrompt;
+        setDeferredPrompt(deferredPrompt);
+        if (installButton) {
+          installButton.style.display = 'block';
+        }
+      }
+
       const handlePwaReady = (e: any) => {
-        setDeferredPrompt(e.detail || (window as any).deferredPwaPrompt);
+        deferredPrompt = e.detail || (window as any).deferredPwaPrompt;
+        setDeferredPrompt(deferredPrompt);
+        const btn = document.getElementById('installButton');
+        if (btn && deferredPrompt) {
+          btn.style.display = 'block';
+        }
       };
 
       const handlePwaInstalled = () => {
         setIsInstalled(true);
         setDeferredPrompt(null);
+        const btn = document.getElementById('installButton');
+        if (btn) btn.style.display = 'none';
         setSucesso('ServPlus instalado com sucesso na tela inicial!');
       };
 
@@ -63,37 +107,15 @@ export const AuthScreen: React.FC = () => {
       window.addEventListener('pwa-installed', handlePwaInstalled);
 
       return () => {
+        window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
         window.removeEventListener('pwa-prompt-ready', handlePwaReady);
         window.removeEventListener('pwa-installed', handlePwaInstalled);
+        if (installButton) {
+          installButton.removeEventListener('click', handleInstallClick);
+        }
       };
     }
   }, []);
-
-  // Disparo direto com 1 clique para instalar PWA
-  const handleInstalarPwaDireto = async () => {
-    const promptEvent = deferredPrompt || (typeof window !== 'undefined' ? (window as any).deferredPwaPrompt : null);
-    
-    if (promptEvent) {
-      try {
-        setInstallingPwa(true);
-        await promptEvent.prompt();
-        const choice = await promptEvent.userChoice;
-        if (choice && choice.outcome === 'accepted') {
-          setIsInstalled(true);
-          setDeferredPrompt(null);
-          setSucesso('Instalação autorizada com sucesso!');
-        }
-      } catch (err) {
-        console.error('Erro ao chamar prompt nativo:', err);
-        setPwaModalAberto(true);
-      } finally {
-        setInstallingPwa(false);
-      }
-    } else {
-      // Se estiver dentro de iframe ou prompt ainda não disponível, abre modal com instruções e link direto
-      setPwaModalAberto(true);
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -180,55 +202,14 @@ export const AuthScreen: React.FC = () => {
           </p>
         </div>
 
-        {/* Card Destaque de Instalação PWA Direta no Login */}
-        <div className="bg-gradient-to-r from-blue-950/60 to-slate-900 border border-blue-500/40 rounded-2xl p-3.5 shadow-lg relative overflow-hidden group">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-3 min-w-0">
-              <div className="w-10 h-10 rounded-xl bg-blue-600/30 border border-blue-500/40 flex items-center justify-center text-blue-400 shrink-0">
-                <Smartphone className="w-5 h-5" />
-              </div>
-              <div className="truncate">
-                <div className="flex items-center gap-1.5">
-                  <span className="text-xs font-bold text-white leading-tight">Instalar Aplicativo</span>
-                  <span className="text-[10px] bg-blue-500/20 text-blue-300 px-1.5 py-0.2 rounded font-medium border border-blue-500/30">
-                    Android & PC
-                  </span>
-                </div>
-                <p className="text-[11px] text-slate-400 truncate mt-0.5">
-                  {isInstalled ? 'Aplicativo instalado no aparelho' : 'Tenha o ícone na tela inicial'}
-                </p>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleInstalarPwaDireto}
-              disabled={installingPwa}
-              className={`py-2 px-3.5 rounded-xl font-bold text-xs shrink-0 flex items-center gap-1.5 transition active:scale-95 shadow-md ${
-                isInstalled
-                  ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/30'
-                  : 'bg-blue-600 hover:bg-blue-500 text-white shadow-blue-900/40'
-              }`}
-            >
-              {isInstalled ? (
-                <>
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                  <span>Instalado</span>
-                </>
-              ) : installingPwa ? (
-                <>
-                  <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  <span>Abrindo...</span>
-                </>
-              ) : (
-                <>
-                  <Download className="w-4 h-4 text-white" />
-                  <span>Instalar</span>
-                </>
-              )}
-            </button>
-          </div>
-        </div>
+        {/* Botão de instalação solicitado */}
+        <button
+          id="installButton"
+          style={{ display: 'none' }}
+          className="w-full py-2.5 px-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold text-xs rounded-xl shadow-lg shadow-blue-900/40 transition active:scale-[0.98] text-center cursor-pointer"
+        >
+          Instalar
+        </button>
 
         {/* Mensagens de Alerta */}
         {erro && (
@@ -383,3 +364,4 @@ export const AuthScreen: React.FC = () => {
     </div>
   );
 };
+
