@@ -208,7 +208,7 @@ export const AuthScreen: React.FC = () => {
           style={{ display: 'none' }}
           className="w-full py-2.5 px-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold text-xs rounded-xl shadow-lg shadow-blue-900/40 transition active:scale-[0.98] text-center cursor-pointer"
         >
-          Instalar
+          Instalar App
         </button>
 
         {/* Mensagens de Alerta */}
