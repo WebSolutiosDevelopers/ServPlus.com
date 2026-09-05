@@ -204,13 +204,12 @@ export const AuthScreen: React.FC = () => {
 
         {/* Botão de instalação solicitado */}
         <button
-  id="installButton"
-  style={{ display: 'none' }}
-  className="py-2 px-3.5 rounded-xl font-bold text-xs shrink-0 flex items-center gap-1.5 transition active:scale-95 shadow-md"
->
-  <Download className="w-4 h-4" />
-  <span>Instalar App</span>
-</button>
+          id="installButton"
+          style={{ display: 'none' }}
+          className="w-full py-2.5 px-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold text-xs rounded-xl shadow-lg shadow-blue-900/40 transition active:scale-[0.98] text-center cursor-pointer"
+        >
+          Instalar App
+        </button>
 
 
         {/* Mensagens de Alerta */}
