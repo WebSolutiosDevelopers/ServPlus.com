@@ -208,9 +208,23 @@ export const AuthScreen: React.FC = () => {
   style={{ display: 'none' }}
   className="w-full py-2.5 px-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold text-xs rounded-xl shadow-lg shadow-blue-900/40 transition active:scale-[0.98] text-center cursor-pointer flex items-center justify-center gap-2"
 >
-  <Download className="w-4 h-4" />
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="w-4 h-4"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+    <polyline points="7 10 12 15 17 10" />
+    <line x1="12" y1="15" x2="12" y2="3" />
+  </svg>
   <span>Instalar App</span>
 </button>
+
 
         {/* Mensagens de Alerta */}
         {erro && (
